@@ -54,7 +54,7 @@ def update_data_frame(search_query):
     df, error_message = fetch_data(search_query)
     if error_message:
         return gr.HTML(value=error_message)
-    return df
+    return gr.DataFrame(value=df)
 
 
 with gr.Blocks(theme=gr.themes.Monochrome(radius_size="md"), js=js_func, title="PhonoFix") as demo:
@@ -77,6 +77,6 @@ with gr.Blocks(theme=gr.themes.Monochrome(radius_size="md"), js=js_func, title="
             # Use the search_input's value to fetch data
             search_input.change(fn=update_data_frame, inputs=search_input, outputs=data_frame)
     
-    text_list.select(update_data_frame, None, data_frame)
+    text_list.select(update_data_frame, search_input, data_frame)
 
 demo.launch()

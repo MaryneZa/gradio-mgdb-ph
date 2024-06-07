@@ -61,4 +61,5 @@ def fetch_data(search_query=None):
             df = df[df['text'].apply(lambda x: bool(pattern.search(x)))]
         return df, None
     except Exception as e:
-        return pd.DataFrame(), f'<span style="color: red;">Error fetching data: {str(e)}</span>'
+        return None, f'<span style="color: red;">Error fetching data: {str(e)}</span>'
+        
