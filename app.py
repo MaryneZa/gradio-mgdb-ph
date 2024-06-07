@@ -13,15 +13,44 @@ function refresh() {
 """
 
 def check_inputs(text, phoneme):
+    """
+    Check if both text and phoneme inputs are not empty.
+
+    Args:
+        text (str): The input text.
+        phoneme (str): The input phoneme.
+
+    Returns:
+        bool: True if both text and phoneme inputs are not empty, False otherwise.
+    """
     return bool(text.strip()) and bool(phoneme.strip())
 
 def update_button_state(text, phoneme):
-                if check_inputs(text, phoneme):
-                    return gr.update(interactive=True)
-                else:
-                    return gr.update(interactive=False)
+    """
+    Update the state of the insert button based on the inputs.
+
+    Args:
+        text (str): The input text.
+        phoneme (str): The input phoneme.
+
+    Returns:
+        gr.Interface: A Gradio Interface object with the interactive state updated.
+    """
+    if check_inputs(text, phoneme):
+        return gr.update(interactive=True)
+    else:
+        return gr.update(interactive=False)
 
 def update_data_frame(search_query):
+    """
+    Update the data frame based on the search query.
+
+    Args:
+        search_query (str): The search query input.
+
+    Returns:
+        gr.Interface: A Gradio Interface object with the data frame updated.
+    """
     df, error_message = fetch_data(search_query)
     if error_message:
         return gr.HTML(value=error_message)

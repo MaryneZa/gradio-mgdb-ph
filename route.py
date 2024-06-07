@@ -13,6 +13,16 @@ db = client['text_phoneme']
 collection = db['data']
 
 def insert_data(text, phoneme):
+    """
+    Insert or update a document in the MongoDB collection.
+
+    Args:
+        text (str): The input text.
+        phoneme (str): The input phoneme.
+
+    Returns:
+        str: A status message indicating the result of the operation.
+    """
     try:
         document = {"text": text, "phoneme": phoneme}
         collection.insert_one(document)
@@ -28,6 +38,16 @@ def insert_data(text, phoneme):
         return f'<span style="color: red;">Error adding data: {str(e)}</span>'
 
 def fetch_data(search_query=None):
+    """
+    Fetch data from the MongoDB collection and filter based on the search query.
+
+    Args:
+        search_query (str, optional): The search query to filter data. Defaults to None.
+
+    Returns:
+        pd.DataFrame: A pandas DataFrame containing the fetched data.
+        str: A status message indicating any error occurred during the operation.
+    """
     try:
         documents = list(collection.find({}))
         data = {"text": [], "phoneme": []}
